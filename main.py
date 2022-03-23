@@ -6,10 +6,6 @@ from local import utils
 from local import cloudutils
 from datetime import datetime
 
-consumer_key= 'xm7ypCOlKF6LxZUfJm9348Z3b'
-consumer_secret= 'lDimplteQSuyOOpzYQHBrbl6X1QxeHVx08lDKXUAgOxELUge1W'
-access_token= '413074544-UNqK21bKZx8TeK19AbJggpmhebBywaUM6JQxtDhB'
-access_token_secret= 'wxEVswqnQKYFtndxOi2QqaMe3kKgSL5Y5vhlGfs2cTtHg'
 
 def run(search_words, date_since):
 
