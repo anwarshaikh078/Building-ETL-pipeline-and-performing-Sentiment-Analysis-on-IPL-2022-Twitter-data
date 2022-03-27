@@ -1,8 +1,7 @@
 def getMatch(date):
     match = {
         "2022-03-26":"#CSKvsKKR",
-        "2022-03-27":"#DCvsMI",
-        "2022-03-27":"#PBKSvsRCB",
+        "2022-03-27":["#DCvsMI","#PBKSvsRCB"],
         "2022-03-28":"#GTvsLSG",
         "2022-03-29":"#SRHvsRR",
         "2022-03-30":"#RCBvsKKR",
@@ -22,8 +21,7 @@ def getMatch(date):
         "2022-04-13":"#MIvsPBKS",
         "2022-04-14":"#RRvsGT",
         "2022-04-15":"#SRHvsKKR",
-        "2022-04-16":"#MIvsLSG",
-        "2022-04-16":"#DCvsRCB",
+        "2022-04-16":["#MIvsLSG","#DCvsRCB"],
         "2022-04-17":["#PBKSvsSRH","#GTvsCSK"],
         "2022-04-18":"#RRvsKKR",
         "2022-04-19":"#LSGvsRCB",

@@ -43,7 +43,7 @@ def run(search_words, date_since):
     print("GCS WRITE:- --- SUCCESS ---")
     
 
-def main(request):
+def main(request, data):
 
     search_words = ["#ipl2022"]
     
@@ -55,15 +55,18 @@ def main(request):
     if len(match_on_date) == 2:
         print("Two Match Day")
         print(match_on_date)
-        #Match 1
-        search_words.append(match_on_date[0])
-        run(search_words_match1,date_since)
-        search_words.remove(match_on_date[0])
-        
-        #Match 2
-        search_words.append(match_on_date[1])
-        run(search_words_match2,date_since)
-        search_words.remove(match_on_date[1])
+
+        hour = datetime.utcnow()
+        if hour >= 10 and hour <= 14:
+            #Match 1
+            search_words.append(match_on_date[0])
+            run(search_words_match1,date_since)
+            search_words.remove(match_on_date[0])
+        else:
+            #Match 2
+            search_words.append(match_on_date[1])
+            run(search_words_match2,date_since)
+            search_words.remove(match_on_date[1])           
     else:
         #Match 1
         search_words.append(match_on_date)
