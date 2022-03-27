@@ -51,24 +51,31 @@ def main(request, data):
     date_since = str(date_since).split(' ')[0]
     
     match_on_date = matches.getMatch(date_since)
-
+    
+    hour = datetime.utcnow()
+    
     if len(match_on_date) == 2:
         print("Two Match Day")
         print(match_on_date)
 
         hour = datetime.utcnow()
-        if hour >= 10 and hour <= 14:
+        if hour >= 10 and hour < 14:
             #Match 1
             search_words.append(match_on_date[0])
             run(search_words_match1,date_since)
             search_words.remove(match_on_date[0])
-        else:
+        elif hour >= 14
             #Match 2
             search_words.append(match_on_date[1])
             run(search_words_match2,date_since)
-            search_words.remove(match_on_date[1])           
-    else:
+            search_words.remove(match_on_date[1])
+        else:
+            print("Will start at 3:30 IST")
+
+    elif hour >= 14:
         #Match 1
         search_words.append(match_on_date)
         print(search_words)
         run(search_words,date_since)
+    else:
+        print("Will start at 7:30 IST")
