@@ -19,7 +19,9 @@ def run(search_words, date_since):
 
     print("Getting tweets...")
     #get tweets using the API
-    tweet_df = utils.getTweets(consumer_key,consumer_secret,access_token,access_token_secret,search_words,date_since)
+    maxTweetId = cloudutils.getMaxTweetId(date_since,search_words[1].replace("#",""))
+
+    tweet_df = utils.getTweets(consumer_key,consumer_secret,access_token,access_token_secret,search_words,date_since,maxTweetId)
 
     #print(tweet_df.head(2))
     print("Getting polarity scores...")
@@ -42,6 +44,9 @@ def run(search_words, date_since):
     cloudutils.WriteToBQ(destination_file_uri)
     print("GCS WRITE:- --- SUCCESS ---")
     
+    maxTweetId = tweet_df['id'].max()
+    
+    cloudutils.insertMaxTweetId(date_since,search_words[1].replace("#",""),maxTweetId)
 
 def main(request, data):
 
@@ -52,22 +57,25 @@ def main(request, data):
     
     match_on_date = matches.getMatch(date_since)
     
-    hour = datetime.utcnow()
+    today = datetime.utcnow()
+    hour = today.time().hour
     
     if len(match_on_date) == 2:
         print("Two Match Day")
         print(match_on_date)
 
-        hour = datetime.utcnow()
+        today = datetime.utcnow()
+        hour = today.time().hour
+        
         if hour >= 10 and hour < 14:
             #Match 1
             search_words.append(match_on_date[0])
-            run(search_words_match1,date_since)
+            run(search_words,date_since)
             search_words.remove(match_on_date[0])
-        elif hour >= 14
+        elif hour >= 14:
             #Match 2
             search_words.append(match_on_date[1])
-            run(search_words_match2,date_since)
+            run(search_words,date_since)
             search_words.remove(match_on_date[1])
         else:
             print("Will start at 3:30 IST")

@@ -8,7 +8,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 nltk.download('vader_lexicon')
 
-def getTweets(consumer_key,consumer_secret,access_token,access_token_secret,searchkey,date):
+def getTweets(consumer_key,consumer_secret,access_token,access_token_secret,searchkey,date,maxTweetId):
 
     auth = tw.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -21,7 +21,7 @@ def getTweets(consumer_key,consumer_secret,access_token,access_token_secret,sear
     tweets = tw.Cursor(api.search_tweets,
                        q=search_words,
                        lang="en",
-                       since=date_since,tweet_mode="extended").items(1000)
+                       since=date_since,tweet_mode="extended",since_id=maxTweetId).items(1000)
 
     tweet_details = [[tweet.id,tweet.created_at, tweet.full_text,tweet.user.screen_name,tweet.user.location] for tweet in tweets]
     tweet_df = pd.DataFrame(data=tweet_details, columns=['id','created_at','text','user_screen_name','user_location'])
